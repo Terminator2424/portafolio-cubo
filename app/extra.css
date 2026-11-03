@@ -22,3 +22,13 @@
 @media (prefers-reduced-motion: reduce) {
   .aurora, .marquee-track, .gradient-text, .floaty { animation: none; }
 }
+
+@media (max-width: 767px) {
+  .aurora {
+    background:
+      radial-gradient(40% 35% at 76% 42%, rgba(34,211,238,.12), transparent 70%),
+      radial-gradient(35% 40% at 12% 88%, rgba(217,70,239,.10), transparent 70%),
+      radial-gradient(32% 30% at 55% 4%, rgba(99,102,241,.12), transparent 70%);
+  }
+}
+

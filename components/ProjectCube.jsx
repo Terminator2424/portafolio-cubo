@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
@@ -341,9 +341,15 @@ export default function ProjectCube({ projects, selected, onSelect, isMobile }) 
     mats.forEach((m, i) => {
       const hot = hover === i || selected === i;
       const dim = selected !== null && selected !== i;
-      const target = hot ? 1.3 : dim ? 0.18 : projects[i]?.placeholder ? 0.2 : 0.55;
+      const target = hot
+        ? (isMobile ? 0.7 : 1.3)
+        : dim
+        ? (isMobile ? 0.08 : 0.18)
+        : projects[i]?.placeholder
+        ? 0.15
+        : (isMobile ? 0.28 : 0.55);
       m.side.emissiveIntensity = THREE.MathUtils.damp(m.side.emissiveIntensity, target, 6, dt);
-      m.center.emissiveIntensity = THREE.MathUtils.damp(m.center.emissiveIntensity, target * 1.3, 6, dt);
+      m.center.emissiveIntensity = THREE.MathUtils.damp(m.center.emissiveIntensity, target * (isMobile ? 1.15 : 1.3), 6, dt);
     });
 
     // Poliedros: la cara con hover/selección se levanta
