@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from 'framer-motion';
 import GithubIcon from './GithubIcon';
@@ -17,7 +17,7 @@ function Block({ id, kicker, title, children }) {
       variants={fade}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={{ once: true, amount: 0.15 }}
       className="mx-auto max-w-6xl px-6 py-24 md:px-12"
     >
       <p className="font-mono text-xs tracking-[0.3em] text-cyan-300">{kicker}</p>
@@ -220,8 +220,8 @@ export default function Sections({ projects, source }) {
               href={href}
               target={href.startsWith('mailto') ? undefined : '_blank'}
               rel="noopener noreferrer"
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="glass group flex items-center gap-4 rounded-2xl p-5"
+              
+              className="glass group flex min-w-0 items-center gap-4 overflow-hidden rounded-2xl p-5"
             >
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-cyan-400 to-fuchsia-500 font-bold text-[#05010f]">
                 {icon ?? <GithubIcon />}

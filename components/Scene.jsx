@@ -24,8 +24,11 @@ export default function Scene({ projects, selected, onSelect, isMobile }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 6], fov: 45, near: 0.1, far: 100 }}
-      dpr={isMobile ? [1, 1.25] : [1, 1.75]}
-      gl={{ antialias: false, powerPreference: 'high-performance' }}
+      dpr={isMobile ? 1 : [1, 1.75]}
+      gl={{
+        antialias: isMobile,
+        powerPreference: isMobile ? 'default' : 'high-performance',
+      }}
       onPointerMissed={() => onSelect(null)}
     >
       <color attach="background" args={['#05010f']} />
@@ -37,22 +40,33 @@ export default function Scene({ projects, selected, onSelect, isMobile }) {
       <pointLight position={[-5, -3, 4]} intensity={isMobile ? 26 : 60} color="#e879f9" />
       <pointLight position={[0, 6, -4]} intensity={isMobile ? 18 : 40} color="#818cf8" />
 
-      <Stars radius={60} depth={50} count={isMobile ? 1200 : 4000} factor={4} saturation={0.6} fade speed={1} />
-      <Sparkles count={isMobile ? 30 : 90} scale={[9, 6, 6]} size={isMobile ? 2 : 3} speed={0.4} color="#67e8f9" />
+      <Stars
+        radius={60}
+        depth={50}
+        count={isMobile ? 800 : 4000}
+        factor={4}
+        saturation={0.6}
+        fade
+        speed={isMobile ? 0.15 : 1}
+      />
+      <Sparkles
+        count={isMobile ? 20 : 90}
+        scale={[9, 6, 6]}
+        size={isMobile ? 2 : 3}
+        speed={isMobile ? 0.15 : 0.4}
+        color="#67e8f9"
+      />
 
       <Suspense fallback={null}>
         <ProjectCube projects={projects} selected={selected} onSelect={onSelect} isMobile={isMobile} />
       </Suspense>
 
-      <EffectComposer multisampling={isMobile ? 0 : 4}>
-        <Bloom
-          intensity={isMobile ? 0.35 : 0.9}
-          luminanceThreshold={isMobile ? 0.7 : 0.4}
-          luminanceSmoothing={isMobile ? 0.5 : 0.3}
-          mipmapBlur
-        />
-        <Vignette eskil={false} offset={0.2} darkness={isMobile ? 0.55 : 0.75} />
-      </EffectComposer>
+      {!isMobile && (
+        <EffectComposer multisampling={4}>
+          <Bloom intensity={0.9} luminanceThreshold={0.4} luminanceSmoothing={0.3} mipmapBlur />
+          <Vignette eskil={false} offset={0.2} darkness={0.75} />
+        </EffectComposer>
+      )}
     </Canvas>
   );
 }
