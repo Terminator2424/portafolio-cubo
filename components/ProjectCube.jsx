@@ -271,7 +271,7 @@ export default function ProjectCube({ projects, selected, onSelect, isMobile }) 
 
   const wide = !isMobile && size.width >= 1100 && size.width / size.height >= 1.45;
   const layout = useMemo(() => {
-    if (isMobile) return { idle: { px: 0, py: -0.95, s: 0.9 }, sel: { px: 0, py: 0.95, s: 0.78 } };
+    if (isMobile) return { idle: { px: 0, py: -1.35, s: 0.9 }, sel: { px: 0, py: 0.95, s: 0.78 } };
     if (wide) return { idle: { px: 0.8, py: 0, s: 1 }, sel: { px: -1.3, py: 0, s: 1 } };
     return { idle: { px: 0, py: -0.7, s: 0.95 }, sel: { px: -1.2, py: -0.2, s: 0.85 } };
   }, [isMobile, wide]);
@@ -492,3 +492,4 @@ export default function ProjectCube({ projects, selected, onSelect, isMobile }) 
     </animated.group>
   );
 }
+
