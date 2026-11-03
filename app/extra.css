@@ -1,0 +1,24 @@
+.aurora {
+  position: absolute; inset: -5%; z-index: 5; pointer-events: none; mix-blend-mode: screen;
+  background:
+    radial-gradient(40% 35% at 76% 42%, rgba(34,211,238,.24), transparent 70%),
+    radial-gradient(35% 40% at 12% 88%, rgba(217,70,239,.22), transparent 70%),
+    radial-gradient(32% 30% at 55% 4%, rgba(99,102,241,.26), transparent 70%);
+  animation: aurora 14s ease-in-out infinite alternate;
+}
+@keyframes aurora {
+  to { transform: translate3d(-2%, 2%, 0) scale(1.08); filter: hue-rotate(40deg); }
+}
+
+.marquee { overflow: hidden; }
+.marquee-track {
+  display: flex; gap: 3rem; width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+.title-glow { text-shadow: 0 0 40px rgba(167,139,250,.35); }
+@media (prefers-reduced-motion: reduce) {
+  .aurora, .marquee-track, .gradient-text, .floaty { animation: none; }
+}
