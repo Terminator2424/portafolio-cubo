@@ -69,7 +69,7 @@ function RoleTicker() {
 
 const TICKER = ['JAVA', 'QUARKUS', 'SPRING BOOT', 'PYTHON', 'IA LOCAL', 'REDES', 'CIBERSEGURIDAD', 'NEXT.JS', 'REACT NATIVE', 'THREE.JS', 'MYSQL', 'POSTGRESQL', 'DOCKER', 'GIT'];
 
-export default function Portfolio({ projects, source }) {
+export default function Portfolio({ projects, source, systems, skills }) {
   const [selected, setSelected] = useState(null);
   const isMobile = useIsMobile();
   const total = projects.length;
@@ -177,7 +177,7 @@ export default function Portfolio({ projects, source }) {
         </div>
       </div>
 
-      <Sections projects={projects} source={source} />
+      <Sections projects={projects} source={source} systems={systems} skills={skills} />
     </main>
   );
 }

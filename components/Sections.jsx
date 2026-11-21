@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 
 import { motion } from 'framer-motion';
 import GithubIcon from './GithubIcon';
-import { PROFILE, SKILLS } from '@/lib/profile';
-import { SYSTEMS } from '@/lib/systems';
+import { PROFILE } from '@/lib/profile';
+import SystemArt from './SystemArt';
 
 const fade = {
   hidden: { opacity: 0, y: 36 },
@@ -108,7 +108,7 @@ function FeaturedSystem({ s }) {
       <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-fuchsia-500/20 blur-[90px]" />
       <div className="grid md:grid-cols-5">
         <div className="relative min-h-[220px] bg-gradient-to-br from-indigo-950 via-[#0b0820] to-fuchsia-950 md:col-span-2">
-          <Art s={s} />
+          <SystemArt s={s} />
         </div>
         <div className="relative p-7 md:col-span-3 md:p-9">
           <span className="chip font-mono text-[10px] tracking-[0.2em] text-fuchsia-200">EL MÁS TRABAJADO</span>
@@ -131,7 +131,7 @@ function SystemCard({ s }) {
   return (
     <motion.article whileHover={{ y: -8 }} className="glass group overflow-hidden rounded-3xl">
       <div className="relative aspect-[16/10] overflow-hidden bg-gradient-to-br from-indigo-950 via-[#0b0820] to-fuchsia-950">
-        <Art s={s} />
+        <SystemArt s={s} />
         <span className="chip absolute left-3 top-3 font-mono text-[10px] text-cyan-200">{s.kind}</span>
       </div>
       <div className="p-6">
@@ -148,7 +148,7 @@ function SystemCard({ s }) {
   );
 }
 
-export default function Sections({ projects, source }) {
+export default function Sections({ projects, source, systems, skills }) {
   const real = projects.filter((p) => !p.placeholder).length;
   const { contact } = PROFILE;
 
@@ -190,13 +190,13 @@ export default function Sections({ projects, source }) {
 
       <Block id="sistemas" kicker="02 · SISTEMAS" title="Sistemas que he diseñado">
         <div className="grid gap-6 md:grid-cols-2">
-          {SYSTEMS.map((s) => (s.featured ? <FeaturedSystem key={s.title} s={s} /> : <SystemCard key={s.title} s={s} />))}
+          {systems.map((s) => (s.featured ? <FeaturedSystem key={s.title} s={s} /> : <SystemCard key={s.title} s={s} />))}
         </div>
       </Block>
 
       <Block id="habilidades" kicker="03 · HABILIDADES" title="Mi stack">
         <div className="grid gap-6 md:grid-cols-2">
-          {SKILLS.map((g) => (
+          {skills.map((g) => (
             <motion.div key={g.group} whileHover={{ y: -6 }} className="glass rounded-3xl p-6">
               <h3 className="font-mono text-sm tracking-[0.2em] text-violet-300">{g.group.toUpperCase()}</h3>
               <div className="mt-4 flex flex-wrap gap-2.5">

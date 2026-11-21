@@ -1,9 +1,9 @@
 import Portfolio from '@/components/Portfolio';
-import { getProjects } from '@/lib/github';
+import { getPortfolioData } from '@/lib/github';
 
 export const revalidate = 3600;
 
 export default async function Page() {
-  const { projects, source } = await getProjects();
-  return <Portfolio projects={projects} source={source} />;
+  const data = await getPortfolioData();
+  return <Portfolio {...data} />;
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import GithubIcon from './GithubIcon';
 
@@ -10,6 +11,34 @@ const LANG_COLORS = {
 };
 const pad = (n) => String(n).padStart(2, '0');
 
+function Demo({ src, name }) {
+  const [state, setState] = useState('loading');
+  if (state === 'error') return null;
+  return (
+    <div className="mt-4 overflow-hidden rounded-xl border border-cyan-300/25 bg-black/40 shadow-[0_0_24px_rgba(34,211,238,0.15)]">
+      <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/[0.03] px-3 py-1.5">
+        <span className="h-2 w-2 rounded-full bg-fuchsia-400/80" />
+        <span className="h-2 w-2 rounded-full bg-violet-400/80" />
+        <span className="h-2 w-2 rounded-full bg-cyan-300/80" />
+        <span className="ml-2 truncate font-mono text-[10px] tracking-[0.18em] text-slate-400">DEMO · {name}</span>
+      </div>
+      <div className={`relative bg-[#05010f] ${state === 'loading' ? 'min-h-[96px]' : ''}`}>
+        {state === 'loading' && <div className="absolute inset-0 animate-pulse bg-white/5" />}
+        <img
+          src={src}
+          alt={`Demo de ${name}`}
+          loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
+          onLoad={() => setState('ok')}
+          onError={() => setState('error')}
+          className="relative block max-h-40 w-full object-contain md:max-h-48"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(0deg,rgba(0,0,0,0.16)_0px,rgba(0,0,0,0.16)_1px,transparent_1px,transparent_3px)]" />
+      </div>
+    </div>
+  );
+}
 function Body({ project, index, total, onClose, onPrev, onNext }) {
   const color = LANG_COLORS[project.language] || '#22d3ee';
   return (
@@ -44,6 +73,8 @@ function Body({ project, index, total, onClose, onPrev, onNext }) {
       </div>
 
       <p className="mt-4 text-sm leading-relaxed text-slate-300 md:text-[15px]">{project.description}</p>
+
+      {project.gif && <Demo key={project.gif} src={project.gif} name={project.name} />}
 
       {project.topics?.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-2">
